@@ -126,11 +126,13 @@ namespace ConsoleTetris
             }
             //Rotating matrix until it either finds a fitting spot, or gives up.
             //if no match is found then the block is simply not rotated.
+            var blockSegments = GetBlockSegments(Position, newMatrix);
+            WallKick(blockSegments);
             var tests = TestAllRotations(newMatrix);
             if(!tests) return;
             BlockMatrix = newMatrix;
-            var blockSegments = GetBlockSegments(Position, BlockMatrix);
-            WallKick(blockSegments);
+            //var blockSegments = GetBlockSegments(Position, BlockMatrix);
+            //WallKick(blockSegments);
         }
 
         //single test, looking for overlaps.
@@ -162,6 +164,7 @@ namespace ConsoleTetris
             return false;
         }
 
+        //Will kick the block out of the wall if its rotation results in it being in the wall. 
         private void WallKick(List<Vector2> blockSegments)
         {
             foreach (var segment in blockSegments)
