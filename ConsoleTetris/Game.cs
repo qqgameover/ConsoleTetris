@@ -33,7 +33,7 @@ namespace ConsoleTetris
             while (true)
             {
                 var x = Controls.HandleInput(CurrentPiece);
-                var collided = CurrentPiece.CheckForCol(Board.BoardArray, x);
+                var collided = CurrentPiece.CheckForCol();
                 if (collided)
                 {
                     Board.CheckForTetris();

@@ -16,7 +16,7 @@ namespace ConsoleTetris
             UndrawBlock(Position, board);
             //CheckForCol(board, Position);
             var blockSegment = GetBlockSegments(Position);
-            var checkSidesForCol = CheckSides(blockSegment);
+            var checkSidesForCol = ColDetection.CheckSides(blockSegment);
             if (checkSidesForCol)
             {
                 CalculateNewPos(dir, board, false);
@@ -37,24 +37,6 @@ namespace ConsoleTetris
                     }
                 }
 
-        }
-
-        public bool CheckSides(List<Vector2> segments)
-        {
-            foreach (Vector2 blockSegment in segments)
-            {
-                int x = (int) blockSegment.X;
-                int y = (int) blockSegment.Y;
-                if (x > 15 || x < 1)
-                {
-                    return true;
-                }
-
-                if (MapMang.Manager.LandedArray[y, x + 1] > 0) return true;
-                if (MapMang.Manager.LandedArray[y, x - 1] > 0) return true;
-            }
-
-            return false;
         }
 
         public void UndrawBlock(Vector2 position, byte[,] board)
@@ -100,47 +82,10 @@ namespace ConsoleTetris
             Position = new Vector2(Position.X + direction.X, Position.Y + direction.Y);
         }
 
-        public bool CheckForCol(byte[,] boardArray, Vector2 dir)
+        public bool CheckForCol()
         {
-            return CheckEachBlockForCol(dir, Position);
-        }
-        private bool CheckEachBlockForCol(Vector2 dir, Vector2 destination)
-        {
-            var blockSegments = GetBlockSegments(destination);
-
-            bool hasCollision = false;
-            foreach (Vector2 blockSegment in blockSegments)
-            {
-                int x = (int)blockSegment.X;
-                int y = (int)blockSegment.Y;
-                if (y + 1 < 21)
-                {
-                    if (MapMang.Manager.LandedArray[y + 1, x] > 0)
-                    {
-                        hasCollision = true;
-                    }
-                }
-                else
-                {
-                    if (MapMang.Manager.LandedArray[y, x] > 0)
-                    {
-                        hasCollision = true;
-                    }
-                }
-                if (hasCollision)
-                {
-                    for (int k = 0; k < BlockMatrix.GetLength(0); k++)
-                    for (int l = 0; l < BlockMatrix.GetLength(1); l++)
-                    {
-                        if (BlockMatrix[k, l] > 0)
-                        {
-                            MapMang.Manager.LandedArray[(int) Position.Y + k, (int) Position.X + l] = BlockMatrix[k, l];
-                        }
-                    }
-                    MapMang.Manager.BoardArray = (byte[,])MapMang.Manager.LandedArray.Clone();
-                }
-            }
-            return hasCollision;
+            var blockSegments = GetBlockSegments(Position);
+            return ColDetection.CheckEachBlockForCol(blockSegments, Position, BlockMatrix);
         }
 
         private List<Vector2> GetBlockSegments(Vector2 destination)
