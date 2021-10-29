@@ -26,11 +26,12 @@ namespace ConsoleTetris
         public void GamePlayLoop()
         {
             Random rng = new Random();
-            //var ran = rng.Next(0, PieceArray.Length);
-            CurrentPiece = PieceArray[0];
+            var ran = rng.Next(0, PieceArray.Length);
             Console.SetWindowSize(16, 22);
             Console.SetBufferSize(400, 200);
-            CurrentPiece = new BlockPiece();
+            CurrentPiece = PieceArray[ran];
+            SoundPlayer gameSong = new SoundPlayer("tetris.wav");
+            gameSong.SoundLocation = Environment.CurrentDirectory + "/tetris.wav";
             Board.DrawBoard();
             while (true)
             {
