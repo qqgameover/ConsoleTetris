@@ -122,7 +122,7 @@ namespace ConsoleTetris
             if (lines == 4) Points += 1200;
         }
 
-        public void RemoveRow(int RowToRemove)
+        public void RemoveRow(int rowToRemove)
         {
             byte[,] tmp = BoardArray;
             List<byte[]> list = new List<byte[]>();
@@ -136,7 +136,7 @@ namespace ConsoleTetris
 
                 list.Add(temp);
             }
-            list.RemoveAt(RowToRemove);
+            list.RemoveAt(rowToRemove);
             list.InsertRange(1, new List<byte[]>
             {
                 new byte[]{1, 0, 0, 0, 0, 0, 0, 0, 0, 1}

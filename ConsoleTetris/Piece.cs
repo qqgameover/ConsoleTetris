@@ -126,6 +126,25 @@ namespace ConsoleTetris
                 newRow++;
             }
             BlockMatrix = newMatrix;
+            var blockSegments = GetBlockSegments(Position);
+            WallKick(blockSegments);
+        }
+
+        private void WallKick(List<Vector2> blockSegments)
+        {
+            foreach (var segment in blockSegments)
+            {
+                var y = (int) segment.Y;
+                var x = (int) segment.X;
+                if (x < 1)
+                {
+                    Position = new Vector2(Position.X + 1f, Position.Y);
+                }
+                if (x + (int) Position.X > 15)
+                {
+                    Position = new Vector2(Position.X - 1f, Position.Y);
+                }
+            }
         }
     }
 }
