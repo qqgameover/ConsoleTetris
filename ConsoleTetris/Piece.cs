@@ -131,8 +131,6 @@ namespace ConsoleTetris
             var tests = TestAllRotations(newMatrix);
             if(!tests) return;
             BlockMatrix = newMatrix;
-            //var blockSegments = GetBlockSegments(Position, BlockMatrix);
-            //WallKick(blockSegments);
         }
 
         //single test, looking for overlaps.
@@ -155,7 +153,7 @@ namespace ConsoleTetris
         //all the tests, will return if it finds a match. 
         private bool TestAllRotations(byte[,] newMatrix)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
                 bool testPosition = TestRotation(newMatrix);
                 if (testPosition) return true;
