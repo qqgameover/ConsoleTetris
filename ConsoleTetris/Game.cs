@@ -26,12 +26,9 @@ namespace ConsoleTetris
 
         public void GamePlayLoop()
         {
-            Console.SetWindowSize(10, 25);
-            Console.SetBufferSize(400, 200);
+            ConsoleStuff();
             GetNewRandomPiece();
-            SoundPlayer player = new SoundPlayer("Tetris.wav");
-            player.PlayLooping();
-
+            PlaySong();
             Board.DrawBoard();
             while (true)
             {
@@ -48,6 +45,18 @@ namespace ConsoleTetris
                 CurrentPiece.DrawBlock(Board.BoardArray, x);
                 Board.DrawBoard();
             }
+        }
+
+        private static void PlaySong()
+        {
+            SoundPlayer player = new SoundPlayer("Tetris.wav");
+            player.PlayLooping();
+        }
+
+        private static void ConsoleStuff()
+        {
+            Console.SetWindowSize(10, 25);
+            Console.SetBufferSize(400, 200);
         }
 
         private void GetNewRandomPiece()
