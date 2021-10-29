@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ConsoleTetris
 {
-    class SPiece : Piece
+    class ZPiece : Piece
     {
-        public SPiece()
+        public ZPiece()
         {
-            BlockMatrix = new byte[,] { { 0, 0, 8, 8 }, { 0, 8, 8, 0 }, { 0, 0, 0, 0 } };
+            BlockMatrix = new byte[,] { { 0, 5, 5, 0 }, { 0, 0, 5, 5 }, { 0, 0, 0, 0 } };
             Position = new Vector2(5f, 1f);
         }
     }

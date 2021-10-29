@@ -69,7 +69,7 @@ namespace ConsoleTetris
         private void GetNewRandomPiece()
         {
             Random rng = new Random();
-            var r = rng.Next(0, 5);
+            var r = rng.Next(0, 7);
             CurrentPiece = r switch
             {
                 0 => new BlockPiece(),
@@ -77,6 +77,8 @@ namespace ConsoleTetris
                 2 => new LPiece(),
                 3 => new SPiece(),
                 4 => new TPiece(),
+                5 => new LPiece(),
+                6 => new ZPiece(),
                 _ => CurrentPiece
             };
         }

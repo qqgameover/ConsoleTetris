@@ -86,6 +86,18 @@ namespace ConsoleTetris
                         Console.Write("█");
                         Console.ResetColor();
                     }
+                    if (BoardArray[i, j] == 7)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.Write("█");
+                        Console.ResetColor();
+                    }
+                    if (BoardArray[i, j] == 8)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.Write("█");
+                        Console.ResetColor();
+                    }
                 }
 
                 if (i == BoardArray.GetLength(0) - 1)
