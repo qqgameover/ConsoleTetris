@@ -11,7 +11,6 @@ namespace ConsoleTetris
         // static singleton
         private static MapMang manager = new MapMang();
         private MapMang() { }
-
         public static MapMang Manager => manager;
 
         public byte[,] BoardArray;

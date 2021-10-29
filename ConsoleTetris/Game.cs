@@ -28,6 +28,8 @@ namespace ConsoleTetris
             Random rng = new Random();
             //var ran = rng.Next(0, PieceArray.Length);
             CurrentPiece = PieceArray[0];
+            Console.SetWindowSize(16, 22);
+            Console.SetBufferSize(400, 400);
             CurrentPiece = new BlockPiece();
             Board.DrawBoard();
             while (true)
@@ -41,6 +43,7 @@ namespace ConsoleTetris
                     var r = rng.Next(0, PieceArray.Length);
                     CurrentPiece = PieceArray[r];
                     CurrentPiece.Position = new Vector2(8f, 1f);
+                    if(MapMang.Manager.LandedArray[1, 8] > 0) break;
                 }
                 CurrentPiece.DrawBlock(Board.BoardArray, x);
                 Board.DrawBoard();
