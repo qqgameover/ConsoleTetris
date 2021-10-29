@@ -82,10 +82,10 @@ namespace ConsoleTetris
             Position = new Vector2(Position.X + direction.X, Position.Y + direction.Y);
         }
 
-        public bool CheckForCol()
+        public bool CheckForCol(Vector2 dir)
         {
             var blockSegments = GetBlockSegments(Position);
-            return ColDetection.CheckEachBlockForCol(blockSegments, Position, BlockMatrix);
+            return ColDetection.CheckEachBlockForCol(blockSegments, Position, BlockMatrix, dir);
         }
 
         private List<Vector2> GetBlockSegments(Vector2 destination)

@@ -28,14 +28,14 @@ namespace ConsoleTetris
             Random rng = new Random();
             //var ran = rng.Next(0, PieceArray.Length);
             CurrentPiece = PieceArray[0];
-            Console.SetWindowSize(16, 22);
-            Console.SetBufferSize(400, 400);
+            Console.SetWindowSize(16, 24);
+            Console.SetBufferSize(400, 200);
             CurrentPiece = new BlockPiece();
             Board.DrawBoard();
             while (true)
             {
                 var x = Controls.HandleInput(CurrentPiece);
-                var collided = CurrentPiece.CheckForCol();
+                var collided = CurrentPiece.CheckForCol(x);
                 if (collided)
                 {
                     Board.CheckForTetris();

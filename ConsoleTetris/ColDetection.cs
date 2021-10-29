@@ -26,29 +26,22 @@ namespace ConsoleTetris
 
             return false;
         }
-        public static  bool CheckEachBlockForCol(List<Vector2> blockSegments, 
-            Vector2 position, byte[,]blockMatrix)
-        {
 
+        public static bool CheckEachBlockForCol(List<Vector2> blockSegments,
+            Vector2 position, byte[,] blockMatrix, Vector2 dir)
+
+        {
             bool hasCollision = false;
             foreach (Vector2 blockSegment in blockSegments)
             {
-                int x = (int)blockSegment.X;
-                int y = (int)blockSegment.Y;
-                if (y + 1 < 21)
+                int x = (int) blockSegment.X;
+                int y = (int) (blockSegment.Y + dir.Y);
+                if (MapMang.Manager.LandedArray[y, x] > 0)
                 {
-                    if (MapMang.Manager.LandedArray[y + 1, x] > 0)
-                    {
-                        hasCollision = true;
-                    }
+                    hasCollision = true;
                 }
-                else
-                {
-                    if (MapMang.Manager.LandedArray[y, x] > 0)
-                    {
-                        hasCollision = true;
-                    }
-                }
+
+                //}
                 if (hasCollision)
                 {
                     for (int k = 0; k < blockMatrix.GetLength(0); k++)
@@ -56,12 +49,14 @@ namespace ConsoleTetris
                     {
                         if (blockMatrix[k, l] > 0)
                         {
-                            MapMang.Manager.LandedArray[(int)position.Y + k, (int)position.X + l] = blockMatrix[k, l];
+                            MapMang.Manager.LandedArray[(int) position.Y + k, (int) position.X + l] = blockMatrix[k, l];
                         }
                     }
-                    MapMang.Manager.BoardArray = (byte[,])MapMang.Manager.LandedArray.Clone();
+
+                    MapMang.Manager.BoardArray = (byte[,]) MapMang.Manager.LandedArray.Clone();
                 }
             }
+
             return hasCollision;
         }
     }

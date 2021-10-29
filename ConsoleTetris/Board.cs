@@ -28,8 +28,8 @@ namespace ConsoleTetris
             {
                 for (int i = 0; i < width; i++)
                 {
-                    board[0, i] = 2;
-                    board[height - 1, i] = 2;
+                    board[0, i] = 1;
+                    board[height - 1, i] = 1;
                     if (i == 0 || i == width - 1)
                     {
                         board[j, i] = 1;
@@ -58,6 +58,8 @@ namespace ConsoleTetris
         {
             for (int i = 0; i < BoardArray.GetLength(0); i++)
             {
+                if(i == BoardArray.GetLength(0) - 1) continue;
+                if (i == 0) continue;
                 var x = Enumerable.Range(0, BoardArray.GetLength(1))
                     .Select(x => BoardArray[i, x])
                     .ToArray();
