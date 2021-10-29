@@ -44,7 +44,7 @@ namespace ConsoleTetris
                     Board.CheckForTetris();
                     Board.DrawBoard();
                     GetNewRandomPiece();
-                    if (MapMang.Manager.LandedArray[2, 4] > 0) break;
+                    if (MapMang.Manager.LandedArray[2, 5] > 0) break;
                 }
                 CurrentPiece.DrawBlock(Board.BoardArray, x);
                 Board.DrawBoard();
@@ -62,7 +62,7 @@ namespace ConsoleTetris
         private static void ConsoleStuff()
         {
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return;
-            Console.SetWindowSize(10, 25);
+            Console.SetWindowSize(12, 25);
             Console.SetBufferSize(400, 200);
         }
 

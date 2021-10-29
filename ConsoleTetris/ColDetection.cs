@@ -15,7 +15,7 @@ namespace ConsoleTetris
             {
                 int x = (int)blockSegment.X;
                 int y = (int)blockSegment.Y;
-                if (x > 10 || x < 1)
+                if (x > 12 || x < 1)
                 {
                     return true;
                 }

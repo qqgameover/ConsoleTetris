@@ -140,7 +140,7 @@ namespace ConsoleTetris
                 {
                     Position = new Vector2(Position.X + 1f, Position.Y);
                 }
-                if (x + (int) Position.X > 15)
+                if (x > 10)
                 {
                     Position = new Vector2(Position.X - 1f, Position.Y);
                 }

@@ -14,8 +14,8 @@ namespace ConsoleTetris
 
         public Board()
         {
-            MapMang.Manager.BoardArray = new byte[22, 10];
-            MapMang.Manager.LandedArray = new byte[22, 10];
+            MapMang.Manager.BoardArray = new byte[22, 12];
+            MapMang.Manager.LandedArray = new byte[22, 12];
             CreateWalls(BoardArray);
             CreateWalls(LandedArray);
 
@@ -139,7 +139,7 @@ namespace ConsoleTetris
             list.RemoveAt(rowToRemove);
             list.InsertRange(1, new List<byte[]>
             {
-                new byte[]{1, 0, 0, 0, 0, 0, 0, 0, 0, 1}
+                new byte[]{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
             });
             var x = list.ToArray();
             BoardArray = To2D(x);
