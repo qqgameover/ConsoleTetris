@@ -42,14 +42,50 @@ namespace ConsoleTetris
         {
             Console.SetCursorPosition(0, 0);
             Console.CursorVisible = false;
+            //Console.BackgroundColor = ConsoleColor.Black;
             for (int i = 0; i < BoardArray.GetLength(0); i++)
             {
+                //Console.BackgroundColor = ConsoleColor.Black;
                 if (i != 0) Console.WriteLine();
                 for (int j = 0; j < BoardArray.GetLength(1); j++)
                 {
                     if (BoardArray[i, j] == 0) Console.Write(" ");
-                    if (BoardArray[i, j] == 1) Console.Write("█");
-                    if (BoardArray[i, j] == 2) Console.Write("▄");
+                    if (BoardArray[i, j] == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.Write("█");
+                        Console.ResetColor();
+                    }
+                    if (BoardArray[i, j] == 2)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("█");
+                        Console.ResetColor();
+                    }
+                    if (BoardArray[i, j] == 3)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                        Console.Write("█");
+                        Console.ResetColor();
+                    }
+                    if (BoardArray[i, j] == 4)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write("█");
+                        Console.ResetColor();
+                    }
+                    if (BoardArray[i, j] == 5)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        Console.Write("█");
+                        Console.ResetColor();
+                    }
+                    if (BoardArray[i, j] == 6)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write("█");
+                        Console.ResetColor();
+                    }
                 }
             }
         }

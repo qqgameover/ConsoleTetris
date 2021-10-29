@@ -11,7 +11,7 @@ namespace ConsoleTetris
     {
         public TPiece()
         {
-            BlockMatrix = new byte[,] { { 0, 1, 0, 0 }, { 1, 1, 1, 0 } };
+            BlockMatrix = new byte[,] { { 0, 6, 0, 0 }, { 6, 6, 6, 0 } };
             Position = new Vector2(8f, 1f);
         }
     }
