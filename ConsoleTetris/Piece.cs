@@ -16,7 +16,7 @@ namespace ConsoleTetris
             UndrawBlock(Position, board);
             //CheckForCol(board, Position);
             var blockSegment = GetBlockSegments(Position);
-            var checkSidesForCol = ColDetection.CheckSides(blockSegment);
+            var checkSidesForCol = ColDetection.CheckSides(blockSegment, dir);
             if (checkSidesForCol)
             {
                 CalculateNewPos(dir, board, false);

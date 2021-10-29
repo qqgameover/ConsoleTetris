@@ -36,7 +36,7 @@ namespace ConsoleTetris
             Board.DrawBoard();
             while (true)
             {
-                Thread.Sleep(200);
+                Thread.Sleep(250);
                 var x = Controls.HandleInput(CurrentPiece);
                 var collided = CurrentPiece.CheckForCol(x);
                 if (collided)

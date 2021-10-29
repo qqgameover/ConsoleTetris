@@ -9,16 +9,20 @@ namespace ConsoleTetris
 {
     public static class ColDetection
     {
-        public static bool CheckSides(List<Vector2> segments)
+        public static bool CheckSides(List<Vector2> segments, Vector2 dir)
         {
             foreach (Vector2 blockSegment in segments)
             {
+                int dirY = (int) dir.Y;
+                int dirX = (int)dir.X;
                 int x = (int)blockSegment.X;
                 int y = (int)blockSegment.Y;
                 if (x > 12 || x < 1)
                 {
                     return true;
                 }
+
+                if (MapMang.Manager.LandedArray[y + dirY, x + dirX] > 0) return true;
 
                 //if (MapMang.Manager.LandedArray[y, x + 1] > 0) return true;
                 //if (MapMang.Manager.LandedArray[y, x - 1] > 0) return true;
