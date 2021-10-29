@@ -53,14 +53,21 @@ namespace ConsoleTetris
 
         private static void PlaySong()
         {
-            SoundPlayer player = new SoundPlayer("Tetris.wav");
-            player.PlayLooping();
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                SoundPlayer player = new SoundPlayer("Tetris.wav");
+                player.PlayLooping();
+            }
+            
         }
 
         private static void ConsoleStuff()
         {
-            Console.SetWindowSize(10, 25);
-            Console.SetBufferSize(400, 200);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Console.SetWindowSize(10, 25);
+                Console.SetBufferSize(400, 200);
+            }
         }
 
         private void GetNewRandomPiece()
