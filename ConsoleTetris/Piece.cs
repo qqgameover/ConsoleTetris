@@ -15,7 +15,7 @@ namespace ConsoleTetris
         {
             UndrawBlock(Position, board);
             //CheckForCol(board, Position);
-            var blockSegment = GetBlockSegments(Position);
+            var blockSegment = GetBlockSegments(Position, BlockMatrix);
             var checkSidesForCol = ColDetection.CheckSides(blockSegment, dir);
             if (checkSidesForCol)
             {
@@ -84,21 +84,21 @@ namespace ConsoleTetris
 
         public bool CheckForCol(Vector2 dir)
         {
-            var blockSegments = GetBlockSegments(Position);
+            var blockSegments = GetBlockSegments(Position, BlockMatrix);
             return ColDetection.CheckEachBlockForCol(blockSegments, Position, BlockMatrix, dir);
         }
 
-        private List<Vector2> GetBlockSegments(Vector2 destination)
+        private List<Vector2> GetBlockSegments(Vector2 destination, byte[,]blockMatrix)
         {
             List<Vector2> blockSegments = new List<Vector2>();
 
-            var height = BlockMatrix.GetLength(0);
-            var width = BlockMatrix.GetLength(1);
+            var height = blockMatrix.GetLength(0);
+            var width = blockMatrix.GetLength(1);
 
             for (int y = 0; y < height; y++)
             for (int x = 0; x < width; x++)
             {
-                if (BlockMatrix[y, x] == 0) continue;
+                if (blockMatrix[y, x] == 0) continue;
                 Vector2 segmentPosition = destination;
                 segmentPosition.X += x;
                 segmentPosition.Y += y;
@@ -124,9 +124,39 @@ namespace ConsoleTetris
                 }
                 newRow++;
             }
+
+            var tests = TestAllRotations(newMatrix);
+            if(!tests) return;
             BlockMatrix = newMatrix;
-            var blockSegments = GetBlockSegments(Position);
+            var blockSegments = GetBlockSegments(Position, BlockMatrix);
             WallKick(blockSegments);
+        }
+
+        private bool TestRotation(byte[,] newMatrix)
+        {
+            var blockSegments = GetBlockSegments(Position, newMatrix);
+            foreach (Vector2 blockSegment in blockSegments)
+            {
+                int x = (int)blockSegment.X;
+                int y = (int)(blockSegment.Y);
+                if (MapMang.Manager.LandedArray[y, x] > 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool TestAllRotations(byte[,] newMatrix)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                bool testPosition = TestRotation(newMatrix);
+                if (testPosition) return true;
+            }
+
+            return false;
         }
 
         private void WallKick(List<Vector2> blockSegments)
