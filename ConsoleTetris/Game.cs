@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Media;
+using Random = System.Random;
 
 namespace ConsoleTetris
 {
     public class Game
     {
+
         public Controls Controls { get; }
         public Board Board { get; private set; }
         public Piece CurrentPiece { get; private set; }
@@ -30,8 +34,9 @@ namespace ConsoleTetris
             Console.SetWindowSize(16, 22);
             Console.SetBufferSize(400, 200);
             CurrentPiece = PieceArray[ran];
-            SoundPlayer gameSong = new SoundPlayer("tetris.wav");
-            gameSong.SoundLocation = Environment.CurrentDirectory + "/tetris.wav";
+            SoundPlayer player = new SoundPlayer("Tetris.wav");
+            player.Play();
+            //gameSong.Load();
             Board.DrawBoard();
             while (true)
             {
