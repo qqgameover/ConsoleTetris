@@ -124,7 +124,8 @@ namespace ConsoleTetris
                 }
                 newRow++;
             }
-
+            //Rotating matrix until it either finds a fitting spot, or gives up.
+            //if no match is found then the block is simply not rotated.
             var tests = TestAllRotations(newMatrix);
             if(!tests) return;
             BlockMatrix = newMatrix;
@@ -132,6 +133,7 @@ namespace ConsoleTetris
             WallKick(blockSegments);
         }
 
+        //single test, looking for overlaps.
         private bool TestRotation(byte[,] newMatrix)
         {
             var blockSegments = GetBlockSegments(Position, newMatrix);
@@ -148,6 +150,7 @@ namespace ConsoleTetris
             return true;
         }
 
+        //all the tests, will return if it finds a match. 
         private bool TestAllRotations(byte[,] newMatrix)
         {
             for (int i = 0; i < 4; i++)
