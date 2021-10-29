@@ -9,7 +9,7 @@ namespace ConsoleTetris
     class MapMang
     {
         // static singleton
-        private static MapMang manager = new MapMang();
+        private static MapMang manager = new();
         private MapMang() { }
         public static MapMang Manager => manager;
 

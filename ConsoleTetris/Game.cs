@@ -28,12 +28,13 @@ namespace ConsoleTetris
             Random rng = new Random();
             //var ran = rng.Next(0, PieceArray.Length);
             CurrentPiece = PieceArray[0];
-            Console.SetWindowSize(16, 24);
+            Console.SetWindowSize(16, 22);
             Console.SetBufferSize(400, 200);
             CurrentPiece = new BlockPiece();
             Board.DrawBoard();
             while (true)
             {
+                Thread.Sleep(200);
                 var x = Controls.HandleInput(CurrentPiece);
                 var collided = CurrentPiece.CheckForCol(x);
                 if (collided)
@@ -43,11 +44,10 @@ namespace ConsoleTetris
                     var r = rng.Next(0, PieceArray.Length);
                     CurrentPiece = PieceArray[r];
                     CurrentPiece.Position = new Vector2(8f, 1f);
-                    if(MapMang.Manager.LandedArray[1, 8] > 0) break;
+                    if(MapMang.Manager.LandedArray[2, 8] > 0) break;
                 }
                 CurrentPiece.DrawBlock(Board.BoardArray, x);
                 Board.DrawBoard();
-                Thread.Sleep(200);
             }
         }
     }

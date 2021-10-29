@@ -40,7 +40,7 @@ namespace ConsoleTetris
 
         public void DrawBoard()
         {
-            Console.SetCursorPosition(0, 1);
+            Console.SetCursorPosition(0, 0);
             Console.CursorVisible = false;
             for (int i = 0; i < BoardArray.GetLength(0); i++)
             {
@@ -75,7 +75,6 @@ namespace ConsoleTetris
         {
             byte[,] tmp = BoardArray;
             List<byte[]> list = new List<byte[]>();
-            //Buffer.BlockCopy(BoardArray, 0, tmp, 0, tmp.Length * sizeof(double));
             for (int i = 0; i < tmp.GetLength(0); i++)
             {
                 byte[] temp = new byte[tmp.GetLength(1)];
@@ -95,14 +94,14 @@ namespace ConsoleTetris
             BoardArray = To2D(x);
         }
 
-        static T[,] To2D<T>(T[][] source)
+        static byte[,] To2D(byte[][] source)
         {
             try
             {
                 int FirstDim = source.Length;
                 int SecondDim = source.GroupBy(row => row.Length).Single().Key; // throws InvalidOperationException if source is not rectangular
 
-                var result = new T[FirstDim, SecondDim];
+                var result = new Byte[FirstDim, SecondDim];
                 for (int i = 0; i < FirstDim; ++i)
                 for (int j = 0; j < SecondDim; ++j)
                     result[i, j] = source[i][j];

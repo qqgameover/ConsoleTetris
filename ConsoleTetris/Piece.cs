@@ -31,7 +31,7 @@ namespace ConsoleTetris
             for (int k = 0; k < BlockMatrix.GetLength(0); k++)
                 for (int l = 0; l < BlockMatrix.GetLength(1); l++)
                 {
-                    if (BlockMatrix[k, l] != 0)
+                    if (BlockMatrix[k, l] > 0)
                     {
                         board[y + k, x + l] = BlockMatrix[k, l];
                     }
