@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Media;
+using System.Runtime.InteropServices;
 using Random = System.Random;
 
 namespace ConsoleTetris
@@ -26,9 +27,12 @@ namespace ConsoleTetris
 
         public void GamePlayLoop()
         {
-            ConsoleStuff();
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                ConsoleStuff();
+                PlaySong();
+            }
             GetNewRandomPiece();
-            PlaySong();
             Board.DrawBoard();
             while (true)
             {

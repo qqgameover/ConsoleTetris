@@ -98,20 +98,28 @@ namespace ConsoleTetris
 
         public void CheckForTetris()
         {
+            bool[] FilledLines = new bool[22];
             for (int i = 0; i < BoardArray.GetLength(0); i++)
             {
                 if(i == BoardArray.GetLength(0) - 1) continue;
                 if (i == 0) continue;
-                var x = Enumerable.Range(0, BoardArray.GetLength(1))
-                    .Select(x => BoardArray[i, x])
-                    .ToArray();
-                var checkAll = x.All(i => i > 0);
-                if (checkAll)
-                {
-                    RemoveRow(i);
-                    Points++;
-                }
+                var fullLine = Enumerable.Range(0, BoardArray.GetLength(1))
+                    .Select(x => BoardArray[i, x]).ToArray().All(i => i > 0);
+                if (!fullLine) continue;
+                RemoveRow(i);
+                FilledLines[i] = fullLine;
             }
+
+            var lines = 0;
+            foreach (var line in FilledLines)
+            {
+                if (line) lines++;
+            }
+
+            if (lines == 1) Points += 40;
+            if (lines == 2) Points += 100;
+            if (lines == 3) Points += 300;
+            if (lines == 4) Points += 1200;
         }
 
         public void RemoveRow(int RowToRemove)
