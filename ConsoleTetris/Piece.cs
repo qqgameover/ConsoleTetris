@@ -110,7 +110,6 @@ namespace ConsoleTetris
         }
 
 
-        //what the fuck...
         public void RotateBlockMatrix()
         {
             byte[,] newMatrix = new byte[BlockMatrix.GetLength(1), BlockMatrix.GetLength(0)];
