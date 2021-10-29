@@ -18,18 +18,15 @@ namespace ConsoleTetris
         public Board Board { get; private set; }
         public Piece CurrentPiece { get; private set; }
 
-        public Piece[] PieceArray { get; }
-
         public Game()
         {
             Controls = new Controls();
             Board = new Board();
-            PieceArray = new Piece[] {new BlockPiece(), new IPiece(), new LPiece(), new TPiece(), new SPiece()};
         }
 
         public void GamePlayLoop()
         {
-            Console.SetWindowSize(10, 22);
+            Console.SetWindowSize(10, 25);
             Console.SetBufferSize(400, 200);
             GetNewRandomPiece();
             SoundPlayer player = new SoundPlayer("Tetris.wav");
@@ -56,12 +53,16 @@ namespace ConsoleTetris
         private void GetNewRandomPiece()
         {
             Random rng = new Random();
-            var r = rng.Next(0, PieceArray.Length);
-            if (r == 0) CurrentPiece = new BlockPiece();
-            if (r == 1) CurrentPiece = new IPiece();
-            if (r == 2) CurrentPiece = new LPiece();
-            if (r == 3) CurrentPiece = new SPiece();
-            if (r == 4) CurrentPiece = new TPiece();
+            var r = rng.Next(0, 5);
+            CurrentPiece = r switch
+            {
+                0 => new BlockPiece(),
+                1 => new IPiece(),
+                2 => new LPiece(),
+                3 => new SPiece(),
+                4 => new TPiece(),
+                _ => CurrentPiece
+            };
         }
     }
 }

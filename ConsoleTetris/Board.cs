@@ -10,6 +10,7 @@ namespace ConsoleTetris
     {
         public byte[,] BoardArray { get => MapMang.Manager.BoardArray; set => MapMang.Manager.BoardArray = value; }
         public byte[,] LandedArray { get => MapMang.Manager.LandedArray; set => MapMang.Manager.LandedArray = value; }
+        public int Points { get; private set; }
 
         public Board()
         {
@@ -42,7 +43,6 @@ namespace ConsoleTetris
         {
             Console.SetCursorPosition(0, 0);
             Console.CursorVisible = false;
-            //Console.BackgroundColor = ConsoleColor.Black;
             for (int i = 0; i < BoardArray.GetLength(0); i++)
             {
                 //Console.BackgroundColor = ConsoleColor.Black;
@@ -87,6 +87,12 @@ namespace ConsoleTetris
                         Console.ResetColor();
                     }
                 }
+
+                if (i == BoardArray.GetLength(0) - 1)
+                {
+                    Console.WriteLine("\n");
+                    Console.WriteLine($"{Points} Points");
+                }
             }
         }
 
@@ -103,6 +109,7 @@ namespace ConsoleTetris
                 if (checkAll)
                 {
                     RemoveRow(i);
+                    Points++;
                 }
             }
         }
