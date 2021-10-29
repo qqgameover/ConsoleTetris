@@ -12,7 +12,7 @@ namespace ConsoleTetris
         public BlockPiece()
         {
             BlockMatrix = new byte[,] {{4, 4, 0, 0}, {4, 4, 0, 0}};
-            Position = new Vector2(7f, 1f);
+            Position = new Vector2(4f, 1f);
         }
     }
 }

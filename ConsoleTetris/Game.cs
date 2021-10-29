@@ -29,14 +29,12 @@ namespace ConsoleTetris
 
         public void GamePlayLoop()
         {
-            Random rng = new Random();
-            var ran = rng.Next(0, PieceArray.Length);
-            Console.SetWindowSize(16, 22);
+            Console.SetWindowSize(10, 22);
             Console.SetBufferSize(400, 200);
-            CurrentPiece = PieceArray[ran];
+            GetNewRandomPiece();
             SoundPlayer player = new SoundPlayer("Tetris.wav");
             player.PlayLooping();
-            //gameSong.Load();
+
             Board.DrawBoard();
             while (true)
             {
@@ -47,14 +45,23 @@ namespace ConsoleTetris
                 {
                     Board.CheckForTetris();
                     Board.DrawBoard();
-                    var r = rng.Next(0, PieceArray.Length);
-                    CurrentPiece = PieceArray[r];
-                    CurrentPiece.Position = new Vector2(7f, 1f);
-                    if(MapMang.Manager.LandedArray[2, 7] > 0) break;
+                    GetNewRandomPiece();
+                    if (MapMang.Manager.LandedArray[2, 4] > 0) break;
                 }
                 CurrentPiece.DrawBlock(Board.BoardArray, x);
                 Board.DrawBoard();
             }
+        }
+
+        private void GetNewRandomPiece()
+        {
+            Random rng = new Random();
+            var r = rng.Next(0, PieceArray.Length);
+            if (r == 0) CurrentPiece = new BlockPiece();
+            if (r == 1) CurrentPiece = new IPiece();
+            if (r == 2) CurrentPiece = new LPiece();
+            if (r == 3) CurrentPiece = new SPiece();
+            if (r == 4) CurrentPiece = new TPiece();
         }
     }
 }

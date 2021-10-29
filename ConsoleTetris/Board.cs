@@ -13,8 +13,8 @@ namespace ConsoleTetris
 
         public Board()
         {
-            MapMang.Manager.BoardArray = new byte[22, 16];
-            MapMang.Manager.LandedArray = new byte[22, 16];
+            MapMang.Manager.BoardArray = new byte[22, 10];
+            MapMang.Manager.LandedArray = new byte[22, 10];
             CreateWalls(BoardArray);
             CreateWalls(LandedArray);
 
@@ -124,10 +124,11 @@ namespace ConsoleTetris
             list.RemoveAt(RowToRemove);
             list.InsertRange(1, new List<byte[]>
             {
-                new byte[]{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
+                new byte[]{1, 0, 0, 0, 0, 0, 0, 0, 0, 1}
             });
             var x = list.ToArray();
             BoardArray = To2D(x);
+            LandedArray = (byte[,])BoardArray.Clone();
         }
 
         static byte[,] To2D(byte[][] source)
@@ -137,7 +138,7 @@ namespace ConsoleTetris
                 int FirstDim = source.Length;
                 int SecondDim = source.GroupBy(row => row.Length).Single().Key; // throws InvalidOperationException if source is not rectangular
 
-                var result = new Byte[FirstDim, SecondDim];
+                var result = new byte[FirstDim, SecondDim];
                 for (int i = 0; i < FirstDim; ++i)
                 for (int j = 0; j < SecondDim; ++j)
                     result[i, j] = source[i][j];
