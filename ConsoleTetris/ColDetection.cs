@@ -23,9 +23,6 @@ namespace ConsoleTetris
                 }
 
                 if (MapMang.Manager.LandedArray[y + dirY, x + dirX] > 0) return true;
-
-                //if (MapMang.Manager.LandedArray[y, x + 1] > 0) return true;
-                //if (MapMang.Manager.LandedArray[y, x - 1] > 0) return true;
             }
 
             return false;
