@@ -40,24 +40,23 @@ namespace ConsoleTetris
                 {
                     hasCollision = true;
                 }
-
-                //}
-                if (hasCollision)
-                {
-                    for (int k = 0; k < blockMatrix.GetLength(0); k++)
-                    for (int l = 0; l < blockMatrix.GetLength(1); l++)
-                    {
-                        if (blockMatrix[k, l] > 0)
-                        {
-                            MapMang.Manager.LandedArray[(int) position.Y + k, (int) position.X + l] = blockMatrix[k, l];
-                        }
-                    }
-
-                    MapMang.Manager.BoardArray = (byte[,]) MapMang.Manager.LandedArray.Clone();
-                }
+                if (hasCollision)MatrixLoop(position, blockMatrix);
             }
 
             return hasCollision;
+        }
+
+        private static void MatrixLoop(Vector2 position, byte[,] blockMatrix)
+        {
+            for (int k = 0; k < blockMatrix.GetLength(0); k++)
+                for (int l = 0; l < blockMatrix.GetLength(1); l++)
+                {
+                    if (blockMatrix[k, l] > 0)
+                    {
+                        MapMang.Manager.LandedArray[(int) position.Y + k, (int) position.X + l] = blockMatrix[k, l];
+                    }
+                }
+            MapMang.Manager.BoardArray = (byte[,]) MapMang.Manager.LandedArray.Clone();
         }
     }
 }
