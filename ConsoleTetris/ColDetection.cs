@@ -40,13 +40,13 @@ namespace ConsoleTetris
                 {
                     hasCollision = true;
                 }
-                if (hasCollision)MatrixLoop(position, blockMatrix);
+                if (hasCollision)PutMatrixInLandedArray(position, blockMatrix);
             }
 
             return hasCollision;
         }
 
-        private static void MatrixLoop(Vector2 position, byte[,] blockMatrix)
+        private static void PutMatrixInLandedArray(Vector2 position, byte[,] blockMatrix)
         {
             for (int k = 0; k < blockMatrix.GetLength(0); k++)
                 for (int l = 0; l < blockMatrix.GetLength(1); l++)
