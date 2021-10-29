@@ -99,7 +99,7 @@ namespace ConsoleTetris
                 var x = Enumerable.Range(0, BoardArray.GetLength(1))
                     .Select(x => BoardArray[i, x])
                     .ToArray();
-                var checkAll = x.All(i => i == 1);
+                var checkAll = x.All(i => i > 0);
                 if (checkAll)
                 {
                     RemoveRow(i);

@@ -35,7 +35,7 @@ namespace ConsoleTetris
             Console.SetBufferSize(400, 200);
             CurrentPiece = PieceArray[ran];
             SoundPlayer player = new SoundPlayer("Tetris.wav");
-            player.Play();
+            player.PlayLooping();
             //gameSong.Load();
             Board.DrawBoard();
             while (true)
@@ -49,8 +49,8 @@ namespace ConsoleTetris
                     Board.DrawBoard();
                     var r = rng.Next(0, PieceArray.Length);
                     CurrentPiece = PieceArray[r];
-                    CurrentPiece.Position = new Vector2(8f, 1f);
-                    if(MapMang.Manager.LandedArray[2, 8] > 0) break;
+                    CurrentPiece.Position = new Vector2(7f, 1f);
+                    if(MapMang.Manager.LandedArray[2, 7] > 0) break;
                 }
                 CurrentPiece.DrawBlock(Board.BoardArray, x);
                 Board.DrawBoard();
