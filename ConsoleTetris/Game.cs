@@ -77,7 +77,7 @@ namespace ConsoleTetris
                 2 => new LPiece(),
                 3 => new SPiece(),
                 4 => new TPiece(),
-                5 => new LPiece(),
+                5 => new JPiece(),
                 6 => new ZPiece(),
                 _ => CurrentPiece
             };

@@ -153,7 +153,7 @@ namespace ConsoleTetris
         //all the tests, will return if it finds a match. 
         private bool TestAllRotations(byte[,] newMatrix)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 bool testPosition = TestRotation(newMatrix);
                 if (testPosition) return true;

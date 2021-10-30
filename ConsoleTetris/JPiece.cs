@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleTetris
 {
-    class JPiececs : Piece
+    class JPiece : Piece
     {
-        public JPiececs()
+        public JPiece()
         {
             BlockMatrix = new byte[,] { { 7, 0, 0, 0 }, { 7, 7, 7, 0 }, { 0, 0, 0, 0 } };
             Position = new Vector2(5f, 1f);
