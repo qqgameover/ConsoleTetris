@@ -25,11 +25,11 @@ namespace ConsoleTetris
             }
             if (cki.Key == ConsoleKey.A)
             {
-                return new Vector2(-1f, 0f);
+                return new Vector2(-1f, 1f);
             }
             if (cki.Key == ConsoleKey.S)
             {
-                return new Vector2(1f, 0f);
+                return new Vector2(1f, 1f);
             }
             return new Vector2(0f, 1f);
         }
