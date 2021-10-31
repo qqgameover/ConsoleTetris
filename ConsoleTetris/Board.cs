@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,6 @@ namespace ConsoleTetris
             MapMang.Manager.LandedArray = new byte[22, 12];
             CreateWalls(BoardArray);
             CreateWalls(LandedArray);
-
         }
 
         private void CreateWalls(byte[,] board)
@@ -43,13 +43,21 @@ namespace ConsoleTetris
         {
             Console.SetCursorPosition(0, 0);
             Console.CursorVisible = false;
+            var handle = Program.GetStdHandle(-11);
+            int mode;
+            Program.GetConsoleMode(handle, out mode);
+            Program.SetConsoleMode(handle, mode | 0x4);
             for (int i = 0; i < BoardArray.GetLength(0); i++)
             {
                 //Console.BackgroundColor = ConsoleColor.Black;
                 if (i != 0) Console.WriteLine();
                 for (int j = 0; j < BoardArray.GetLength(1); j++)
                 {
-                    if (BoardArray[i, j] == 0) Console.Write(" ");
+                    if (BoardArray[i, j] == 0)
+                    {
+                        Console.Write( "\x1b[48;5;" + 235 + "m" + "+" ); ;
+                        Console.ResetColor();
+                    }
                     if (BoardArray[i, j] == 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Gray;
