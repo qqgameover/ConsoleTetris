@@ -63,8 +63,8 @@ namespace ConsoleTetris
                 {
                     if (BoardArray[i, j] == 0)
                     {
-                        Console.Write( "\x1b[38;2;" + 0 + ";" + 0 + ";" + 0 + "m" );
-                        Console.Write( "\x1b[48;5;" + 100 + ";" + 100 + ";" + 100 + "m" + "+" );
+                        Console.Write( "\x1b[30;5;" + 14 + "7m" );
+                        Console.Write( "\x1b[48;5;" + 244 + "m+" );
                         Console.ResetColor();
                     }
                     if (BoardArray[i, j] == 1)
@@ -177,22 +177,15 @@ namespace ConsoleTetris
 
         static byte[,] To2D(byte[][] source)
         {
-            try
-            {
-                int FirstDim = source.Length;
-                int SecondDim = source.GroupBy(row => row.Length).Single().Key; // throws InvalidOperationException if source is not rectangular
+            //turns a rect jagged array into a 2d array.
+            //will throw error if source is not rectangular.
+            int FirstDim = source.Length;
+            int SecondDim = source.GroupBy(row => row.Length).Single().Key;
 
-                var result = new byte[FirstDim, SecondDim];
-                for (int i = 0; i < FirstDim; ++i)
-                for (int j = 0; j < SecondDim; ++j)
-                    result[i, j] = source[i][j];
-
-                return result;
-            }
-            catch (InvalidOperationException)
-            {
-                throw new InvalidOperationException("The given jagged array is not rectangular.");
-            }
+            var result = new byte[FirstDim, SecondDim];
+            for (int i = 0; i < FirstDim; ++i)
+            for (int j = 0; j < SecondDim; ++j) result[i, j] = source[i][j];
+            return result;
         }
     }
 }

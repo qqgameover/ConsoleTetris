@@ -43,7 +43,6 @@ namespace ConsoleTetris
                 }
                 if (hasCollision)PutMatrixInLandedArray(position, blockMatrix);
             }
-
             return hasCollision;
         }
 
