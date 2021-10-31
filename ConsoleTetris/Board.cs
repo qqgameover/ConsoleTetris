@@ -62,13 +62,13 @@ namespace ConsoleTetris
                 {
                     if (BoardArray[i, j] == 0)
                     {
-                        Console.Write( "\x1b[38;5;" + 233 + "m" );
-                        Console.Write( "\x1b[48;5;" + 239 + "m+" );
+                        Console.Write( "\x1b[38;5;" + 241 + "m" );
+                        Console.Write( "\x1b[48;5;" + 232 + "m+" );
                         Console.ResetColor();
                     }
                     if (BoardArray[i, j] == 1)
                     {
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.Write("\x1b[38;5;" + 241 + "m");
                         Console.Write("█");
                         Console.ResetColor();
                     }
