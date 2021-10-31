@@ -57,14 +57,13 @@ namespace ConsoleTetris
             SetConsoleMode(handle, mode | 0x4);
             for (int i = 0; i < BoardArray.GetLength(0); i++)
             {
-                //Console.BackgroundColor = ConsoleColor.Black;
                 if (i != 0) Console.WriteLine();
                 for (int j = 0; j < BoardArray.GetLength(1); j++)
                 {
                     if (BoardArray[i, j] == 0)
                     {
-                        Console.Write( "\x1b[30;5;" + 14 + "7m" );
-                        Console.Write( "\x1b[48;5;" + 244 + "m+" );
+                        Console.Write( "\x1b[38;5;" + 233 + "m" );
+                        Console.Write( "\x1b[48;5;" + 239 + "m+" );
                         Console.ResetColor();
                     }
                     if (BoardArray[i, j] == 1)

@@ -7,6 +7,7 @@ namespace ConsoleTetris
     {
         static void Main()
         {
+            
             var game = new Game();
             game.GamePlayLoop();
         }
