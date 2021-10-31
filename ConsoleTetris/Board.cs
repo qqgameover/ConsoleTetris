@@ -13,6 +13,14 @@ namespace ConsoleTetris
         public byte[,] LandedArray { get => MapMang.Manager.LandedArray; set => MapMang.Manager.LandedArray = value; }
         public int Points { get; private set; }
 
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool SetConsoleMode(IntPtr hConsoleHandle, int mode);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool GetConsoleMode(IntPtr handle, out int mode);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern IntPtr GetStdHandle(int handle);
+
         public Board()
         {
             MapMang.Manager.BoardArray = new byte[22, 12];
@@ -43,10 +51,10 @@ namespace ConsoleTetris
         {
             Console.SetCursorPosition(0, 0);
             Console.CursorVisible = false;
-            var handle = Program.GetStdHandle(-11);
+            var handle = GetStdHandle(-11);
             int mode;
-            Program.GetConsoleMode(handle, out mode);
-            Program.SetConsoleMode(handle, mode | 0x4);
+            GetConsoleMode(handle, out mode);
+            SetConsoleMode(handle, mode | 0x4);
             for (int i = 0; i < BoardArray.GetLength(0); i++)
             {
                 //Console.BackgroundColor = ConsoleColor.Black;
