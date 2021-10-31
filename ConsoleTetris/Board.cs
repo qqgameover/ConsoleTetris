@@ -74,43 +74,50 @@ namespace ConsoleTetris
                     }
                     if (BoardArray[i, j] == 2)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        //better red
+                        Console.Write("\x1b[38;5;" + 196 + "m");
                         Console.Write("█");
                         Console.ResetColor();
                     }
                     if (BoardArray[i, j] == 3)
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                        //Better purple
+                        Console.Write("\x1b[38;5;" + 135 + "m");
                         Console.Write("█");
                         Console.ResetColor();
                     }
                     if (BoardArray[i, j] == 4)
                     {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        //Better light blue
+                        Console.Write("\x1b[38;5;" + 39 + "m");
                         Console.Write("█");
                         Console.ResetColor();
                     }
                     if (BoardArray[i, j] == 5)
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        //Better dark blue
+                        Console.Write("\x1b[38;5;" + 20 + "m");
                         Console.Write("█");
                         Console.ResetColor();
                     }
                     if (BoardArray[i, j] == 6)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        //Better yellow
+                        Console.Write("\x1b[38;5;" + 226 + "m");
                         Console.Write("█");
                         Console.ResetColor();
                     }
                     if (BoardArray[i, j] == 7)
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        //Better green
+                        Console.Write("\x1b[38;5;" + 28 + "m");
                         Console.Write("█");
                         Console.ResetColor();
                     }
                     if (BoardArray[i, j] == 8)
                     {
-                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        //Better pink
+                        Console.Write("\x1b[38;5;" + 201 + "m");
                         Console.Write("█");
                         Console.ResetColor();
                     }
