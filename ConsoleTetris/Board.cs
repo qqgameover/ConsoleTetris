@@ -63,7 +63,7 @@ namespace ConsoleTetris
                 {
                     if (BoardArray[i, j] == 0)
                     {
-                        Console.Write("\x1b[38;2;" + 0 + ";" + 0 + ";" + 0 + "m");
+                        Console.Write( "\x1b[38;2;" + 0 + ";" + 0 + ";" + 0 + "m" );
                         Console.Write( "\x1b[48;5;" + 100 + ";" + 100 + ";" + 100 + "m" + "+" );
                         Console.ResetColor();
                     }
