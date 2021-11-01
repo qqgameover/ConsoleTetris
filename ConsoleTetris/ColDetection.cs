@@ -17,15 +17,20 @@ namespace ConsoleTetris
                 int dirX = (int)dir.X;
                 int x = (int)blockSegment.X;
                 int y = (int)blockSegment.Y;
-                if (x > 12 || x < 1)
+                if (IntersectWithSides(x))
                 {
                     return true;
                 }
 
-                if (MapMang.Manager.LandedArray[y + dirY, x + dirX] > 0) return true;
+                if (BlockIsOccupied(y + dirY, x + dirX, MapMang.Manager.LandedArray)) return true;
             }
 
             return false;
+        }
+
+        private static bool IntersectWithSides(int posX)
+        {
+            return (posX > 12 || posX < 1);
         }
 
         public static bool CheckEachBlockForCol(List<Vector2> blockSegments,
@@ -37,7 +42,7 @@ namespace ConsoleTetris
             {
                 int x = (int) blockSegment.X;
                 int y = (int) (blockSegment.Y + dir.Y);
-                if (MapMang.Manager.LandedArray[y, x] > 0)
+                if (BlockIsOccupied(y, x, MapMang.Manager.LandedArray))
                 {
                     hasCollision = true;
                 }
@@ -51,12 +56,17 @@ namespace ConsoleTetris
             for (int k = 0; k < blockMatrix.GetLength(0); k++)
                 for (int l = 0; l < blockMatrix.GetLength(1); l++)
                 {
-                    if (blockMatrix[k, l] > 0)
+                    if (BlockIsOccupied(k, l, blockMatrix))
                     {
                         MapMang.Manager.LandedArray[(int) position.Y + k, (int) position.X + l] = blockMatrix[k, l];
                     }
                 }
             MapMang.Manager.BoardArray = (byte[,]) MapMang.Manager.LandedArray.Clone();
+        }
+
+        private static bool BlockIsOccupied(int y, int x, byte[,] matrix)
+        {
+            return matrix[y, x] > 0;
         }
     }
 }

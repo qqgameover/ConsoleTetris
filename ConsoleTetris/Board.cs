@@ -15,12 +15,12 @@ namespace ConsoleTetris
 
         //added this to get more colors.
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool SetConsoleMode(IntPtr hConsoleHandle, int mode);
+        private static extern bool SetConsoleMode(IntPtr hConsoleHandle, int mode);
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool GetConsoleMode(IntPtr handle, out int mode);
+        private static extern bool GetConsoleMode(IntPtr handle, out int mode);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern IntPtr GetStdHandle(int handle);
+        private static extern IntPtr GetStdHandle(int handle);
 
         public Board()
         {
@@ -38,9 +38,10 @@ namespace ConsoleTetris
             {
                 for (int i = 0; i < width; i++)
                 {
+                    //wall or roof
                     board[0, i] = 1;
                     board[height - 1, i] = 1;
-                    if (i == 0 || i == width - 1)
+                    if (Board.IsAWall(i, width))
                     {
                         board[j, i] = 1;
                     }
@@ -48,81 +49,68 @@ namespace ConsoleTetris
             }
         }
 
+        private static bool IsAWall(int i, int width)
+        {
+            return i == 0 || i == width - 1;
+        }
+
         public void DrawBoard()
         {
             Console.SetCursorPosition(0, 0);
             Console.CursorVisible = false;
             var handle = GetStdHandle(-11);
-            int mode;
-            GetConsoleMode(handle, out mode);
+            GetConsoleMode(handle, out var mode);
             SetConsoleMode(handle, mode | 0x4);
             for (int i = 0; i < BoardArray.GetLength(0); i++)
             {
                 if (i != 0) Console.WriteLine();
                 for (int j = 0; j < BoardArray.GetLength(1); j++)
                 {
-                    if (BoardArray[i, j] == 0)
+                    if (IsEmpty(i, j))
                     {
                         //better gray and black
-                        Console.Write( "\x1b[38;5;" + 241 + "m" );
+                        WriteWithBetterColors(241, "");
                         Console.Write( "\x1b[48;5;" + 232 + "m+" );
                         Console.ResetColor();
                     }
-                    if (BoardArray[i, j] == 1)
+                    if (IsWall(i, j))
                     {
                         //better gray
-                        Console.Write("\x1b[38;5;" + 241 + "m");
-                        Console.Write("█");
-                        Console.ResetColor();
+                        WriteWithBetterColors(241);
                     }
-                    if (BoardArray[i, j] == 2)
+                    if (IsIPiece(i, j))
                     {
                         //better red
-                        Console.Write("\x1b[38;5;" + 196 + "m");
-                        Console.Write("█");
-                        Console.ResetColor();
+                        WriteWithBetterColors(196);
                     }
-                    if (BoardArray[i, j] == 3)
+                    if (IsLPiece(i, j))
                     {
                         //Better purple
-                        Console.Write("\x1b[38;5;" + 135 + "m");
-                        Console.Write("█");
-                        Console.ResetColor();
+                        WriteWithBetterColors(135);
                     }
-                    if (BoardArray[i, j] == 4)
+                    if (IsBlockPiece(i, j))
                     {
                         //Better light blue
-                        Console.Write("\x1b[38;5;" + 39 + "m");
-                        Console.Write("█");
-                        Console.ResetColor();
+                        WriteWithBetterColors(39);
                     }
-                    if (BoardArray[i, j] == 5)
+                    if (IsSPiece(i, j))
                     {
                         //Better dark blue
-                        Console.Write("\x1b[38;5;" + 20 + "m");
-                        Console.Write("█");
-                        Console.ResetColor();
+                        WriteWithBetterColors(20);
                     }
-                    if (BoardArray[i, j] == 6)
+                    if (IsTPiece(i, j))
                     {
                         //Better yellow
-                        Console.Write("\x1b[38;5;" + 226 + "m");
-                        Console.Write("█");
-                        Console.ResetColor();
+                        WriteWithBetterColors(226);
                     }
-                    if (BoardArray[i, j] == 7)
+                    if (IsJPiece(i, j))
                     {
-                        //Better green
-                        Console.Write("\x1b[38;5;" + 28 + "m");
-                        Console.Write("█");
-                        Console.ResetColor();
+                        WriteWithBetterColors(28);
                     }
-                    if (BoardArray[i, j] == 8)
+                    if (IsZPiece(i, j))
                     {
                         //Better pink
-                        Console.Write("\x1b[38;5;" + 201 + "m");
-                        Console.Write("█");
-                        Console.ResetColor();
+                        WriteWithBetterColors(201);
                     }
                 }
 
@@ -133,6 +121,18 @@ namespace ConsoleTetris
                 }
             }
         }
+
+        private void WriteWithBetterColors(int color, string sym = "█")
+        {
+            Console.Write("\x1b[38;5;" + color + "m");
+            if (sym != "")
+            {
+                Console.Write(sym);
+                Console.ResetColor();
+            }
+            
+        }
+
 
         public void CheckForTetris()
         {
@@ -195,6 +195,50 @@ namespace ConsoleTetris
             for (int i = 0; i < FirstDim; ++i)
             for (int j = 0; j < SecondDim; ++j) result[i, j] = source[i][j];
             return result;
+        }
+        private bool IsZPiece(int i, int j)
+        {
+            return BoardArray[i, j] == 8;
+        }
+
+        private bool IsJPiece(int i, int j)
+        {
+            return BoardArray[i, j] == 7;
+        }
+
+        private bool IsTPiece(int i, int j)
+        {
+            return BoardArray[i, j] == 6;
+        }
+
+        private bool IsSPiece(int i, int j)
+        {
+            return BoardArray[i, j] == 5;
+        }
+
+        private bool IsBlockPiece(int i, int j)
+        {
+            return BoardArray[i, j] == 4;
+        }
+
+        private bool IsLPiece(int i, int j)
+        {
+            return BoardArray[i, j] == 3;
+        }
+
+        private bool IsIPiece(int i, int j)
+        {
+            return BoardArray[i, j] == 2;
+        }
+
+        private bool IsWall(int i, int j)
+        {
+            return BoardArray[i, j] == 1;
+        }
+
+        private bool IsEmpty(int i, int j)
+        {
+            return BoardArray[i, j] == 0;
         }
     }
 }

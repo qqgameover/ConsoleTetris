@@ -14,7 +14,6 @@ namespace ConsoleTetris
         public void DrawBlock(byte[,] board, Vector2 dir)
         {
             UndrawBlock(Position, board);
-            //CheckForCol(board, Position);
             var blockSegment = GetBlockSegments(Position, BlockMatrix);
             var checkSidesForCol = ColDetection.CheckSides(blockSegment, dir);
             if (checkSidesForCol)
@@ -47,13 +46,19 @@ namespace ConsoleTetris
                 for (int k = 0; k < BlockMatrix.GetLength(0); k++)
                 for (int l = 0; l < BlockMatrix.GetLength(1); l++)
                 {
-                    if (BlockMatrix[k, l] != 0)
+                    if (BlockIsFilled(k, l))
                     {
                         board[y + k, x + l] = 0;
                     }
                 }
             }
         }
+
+        private bool BlockIsFilled(int i, int j)
+        {
+            return BlockMatrix[i, j] > 0;
+        }
+
         public void CalculateNewPos(Vector2 direction, byte[,] board, bool isValid = true)
         {
             if (!isValid)
@@ -67,7 +72,7 @@ namespace ConsoleTetris
             for (int k = 0; k < BlockMatrix.GetLength(0); k++)
             for (int l = 0; l < BlockMatrix.GetLength(1); l++)
             {
-                if (BlockMatrix[k, l] == 0) continue;
+                if (BlockIsEmpty(k, l, BlockMatrix)) continue;
                 if (board[(int)Position.Y + k, (int)Position.X + l + (int)direction.X] == 1)
                 {
                     hittingSides = true;
@@ -80,6 +85,11 @@ namespace ConsoleTetris
                 return;
             }
             Position = new Vector2(Position.X + direction.X, Position.Y + direction.Y);
+        }
+
+        private bool BlockIsEmpty(int i, int j, byte[,] blockMatrix)
+        {
+            return blockMatrix[i, j] == 0;
         }
 
         public bool CheckForCol(Vector2 dir)
@@ -98,7 +108,7 @@ namespace ConsoleTetris
             for (int y = 0; y < height; y++)
             for (int x = 0; x < width; x++)
             {
-                if (blockMatrix[y, x] == 0) continue;
+                if (BlockIsEmpty(y, x, blockMatrix)) continue;
                 Vector2 segmentPosition = destination;
                 segmentPosition.X += x;
                 segmentPosition.Y += y;
