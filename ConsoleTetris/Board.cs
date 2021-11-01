@@ -101,8 +101,8 @@ namespace ConsoleTetris
 
         public void CheckForTetris()
         {
+            var pointsArray = new[] {40, 100, 300, 1200};
             var count = 0;
-            bool[] FilledLines = new bool[22];
             for (int i = 0; i < BoardArray.GetLength(0); i++)
             {
                 if(i == BoardArray.GetLength(0) - 1) continue;
@@ -114,10 +114,7 @@ namespace ConsoleTetris
                 count++;
             }
 
-            if (count == 1) Points += 40;
-            if (count == 2) Points += 100;
-            if (count == 3) Points += 300;
-            if (count == 4) Points += 1200;
+            if (count > 0) Points += pointsArray[count - 1];
         }
 
         public void RemoveRow(int rowToRemove)
