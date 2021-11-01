@@ -13,6 +13,8 @@ namespace ConsoleTetris
         public byte[,] LandedArray { get => MapMang.Manager.LandedArray; set => MapMang.Manager.LandedArray = value; }
         public int Points { get; private set; }
 
+        private int[] ColorArray { get; set; } 
+
         //added this to get more colors.
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool SetConsoleMode(IntPtr hConsoleHandle, int mode);
@@ -26,6 +28,7 @@ namespace ConsoleTetris
         {
             MapMang.Manager.BoardArray = new byte[22, 12];
             MapMang.Manager.LandedArray = new byte[22, 12];
+            ColorArray = new[] {241, 196, 135, 39, 20, 226, 28, 201};
             CreateWalls(BoardArray);
             CreateWalls(LandedArray);
         }
@@ -72,48 +75,10 @@ namespace ConsoleTetris
                         WriteWithBetterColors(241, "");
                         Console.Write( "\x1b[48;5;" + 232 + "m+" );
                         Console.ResetColor();
+                        continue;
                     }
-                    if (IsWall(i, j))
-                    {
-                        //better gray
-                        WriteWithBetterColors(241);
-                    }
-                    if (IsIPiece(i, j))
-                    {
-                        //better red
-                        WriteWithBetterColors(196);
-                    }
-                    if (IsLPiece(i, j))
-                    {
-                        //Better purple
-                        WriteWithBetterColors(135);
-                    }
-                    if (IsBlockPiece(i, j))
-                    {
-                        //Better light blue
-                        WriteWithBetterColors(39);
-                    }
-                    if (IsSPiece(i, j))
-                    {
-                        //Better dark blue
-                        WriteWithBetterColors(20);
-                    }
-                    if (IsTPiece(i, j))
-                    {
-                        //Better yellow
-                        WriteWithBetterColors(226);
-                    }
-                    if (IsJPiece(i, j))
-                    {
-                        WriteWithBetterColors(28);
-                    }
-                    if (IsZPiece(i, j))
-                    {
-                        //Better pink
-                        WriteWithBetterColors(201);
-                    }
+                    WriteWithBetterColors(ColorArray[BoardArray[i, j] - 1]);
                 }
-
                 if (i == BoardArray.GetLength(0) - 1)
                 {
                     Console.WriteLine("\n");
@@ -136,6 +101,7 @@ namespace ConsoleTetris
 
         public void CheckForTetris()
         {
+            var count = 0;
             bool[] FilledLines = new bool[22];
             for (int i = 0; i < BoardArray.GetLength(0); i++)
             {
@@ -145,19 +111,13 @@ namespace ConsoleTetris
                     .Select(x => BoardArray[i, x]).ToArray().All(i => i > 0);
                 if (!fullLine) continue;
                 RemoveRow(i);
-                FilledLines[i] = fullLine;
+                count++;
             }
 
-            var lines = 0;
-            foreach (var line in FilledLines)
-            {
-                if (line) lines++;
-            }
-
-            if (lines == 1) Points += 40;
-            if (lines == 2) Points += 100;
-            if (lines == 3) Points += 300;
-            if (lines == 4) Points += 1200;
+            if (count == 1) Points += 40;
+            if (count == 2) Points += 100;
+            if (count == 3) Points += 300;
+            if (count == 4) Points += 1200;
         }
 
         public void RemoveRow(int rowToRemove)
@@ -196,46 +156,6 @@ namespace ConsoleTetris
             for (int j = 0; j < SecondDim; ++j) result[i, j] = source[i][j];
             return result;
         }
-        private bool IsZPiece(int i, int j)
-        {
-            return BoardArray[i, j] == 8;
-        }
-
-        private bool IsJPiece(int i, int j)
-        {
-            return BoardArray[i, j] == 7;
-        }
-
-        private bool IsTPiece(int i, int j)
-        {
-            return BoardArray[i, j] == 6;
-        }
-
-        private bool IsSPiece(int i, int j)
-        {
-            return BoardArray[i, j] == 5;
-        }
-
-        private bool IsBlockPiece(int i, int j)
-        {
-            return BoardArray[i, j] == 4;
-        }
-
-        private bool IsLPiece(int i, int j)
-        {
-            return BoardArray[i, j] == 3;
-        }
-
-        private bool IsIPiece(int i, int j)
-        {
-            return BoardArray[i, j] == 2;
-        }
-
-        private bool IsWall(int i, int j)
-        {
-            return BoardArray[i, j] == 1;
-        }
-
         private bool IsEmpty(int i, int j)
         {
             return BoardArray[i, j] == 0;

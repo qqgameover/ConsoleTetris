@@ -170,15 +170,25 @@ namespace ConsoleTetris
             {
                 var y = (int) segment.Y;
                 var x = (int) segment.X;
-                if (x < 1)
+                if (NextToLeftWall(x))
                 {
                     Position = new Vector2(Position.X + 1f, Position.Y);
                 }
-                if (x > 10)
+                if (NextToRightWall(x))
                 {
                     Position = new Vector2(Position.X - 1f, Position.Y);
                 }
             }
+        }
+
+        private static bool NextToLeftWall(int x)
+        {
+            return x < 1;
+        }
+
+        private static bool NextToRightWall(int x)
+        {
+            return x > 10;
         }
     }
 }
