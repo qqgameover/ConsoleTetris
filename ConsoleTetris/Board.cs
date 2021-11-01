@@ -12,8 +12,7 @@ namespace ConsoleTetris
         public byte[,] BoardArray { get => MapMang.Manager.BoardArray; set => MapMang.Manager.BoardArray = value; }
         public byte[,] LandedArray { get => MapMang.Manager.LandedArray; set => MapMang.Manager.LandedArray = value; }
         public int Points { get; private set; }
-
-        private int[] ColorArray { get; set; } 
+        private int[] ColorArray { get; set; }
 
         //added this to get more colors.
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -113,7 +112,6 @@ namespace ConsoleTetris
                 RemoveRow(i);
                 count++;
             }
-
             if (count > 0) Points += pointsArray[count - 1];
         }
 
