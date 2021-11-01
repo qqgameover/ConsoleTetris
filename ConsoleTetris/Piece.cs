@@ -30,7 +30,7 @@ namespace ConsoleTetris
             for (int k = 0; k < BlockMatrix.GetLength(0); k++)
                 for (int l = 0; l < BlockMatrix.GetLength(1); l++)
                 {
-                    if (BlockMatrix[k, l] > 0)
+                    if (ColDetection.BlockIsOccupied(k, l, BlockMatrix))
                     {
                         board[y + k, x + l] = BlockMatrix[k, l];
                     }
@@ -46,7 +46,7 @@ namespace ConsoleTetris
                 for (int k = 0; k < BlockMatrix.GetLength(0); k++)
                 for (int l = 0; l < BlockMatrix.GetLength(1); l++)
                 {
-                    if (BlockIsFilled(k, l))
+                    if (ColDetection.BlockIsOccupied(k, l, BlockMatrix))
                     {
                         board[y + k, x + l] = 0;
                     }
@@ -72,7 +72,7 @@ namespace ConsoleTetris
             for (int k = 0; k < BlockMatrix.GetLength(0); k++)
             for (int l = 0; l < BlockMatrix.GetLength(1); l++)
             {
-                if (BlockIsEmpty(k, l, BlockMatrix)) continue;
+                if (ColDetection.BlockIsEmpty(k, l, BlockMatrix)) continue;
                 if (board[(int)Position.Y + k, (int)Position.X + l + (int)direction.X] == 1)
                 {
                     hittingSides = true;
@@ -87,10 +87,6 @@ namespace ConsoleTetris
             Position = new Vector2(Position.X + direction.X, Position.Y + direction.Y);
         }
 
-        private bool BlockIsEmpty(int i, int j, byte[,] blockMatrix)
-        {
-            return blockMatrix[i, j] == 0;
-        }
 
         public bool CheckForCol(Vector2 dir)
         {
@@ -108,7 +104,7 @@ namespace ConsoleTetris
             for (int y = 0; y < height; y++)
             for (int x = 0; x < width; x++)
             {
-                if (BlockIsEmpty(y, x, blockMatrix)) continue;
+                if (ColDetection.BlockIsEmpty(y, x, blockMatrix)) continue;
                 Vector2 segmentPosition = destination;
                 segmentPosition.X += x;
                 segmentPosition.Y += y;

@@ -28,11 +28,6 @@ namespace ConsoleTetris
             return false;
         }
 
-        private static bool IntersectWithSides(int posX)
-        {
-            return (posX > 12 || posX < 1);
-        }
-
         public static bool CheckEachBlockForCol(List<Vector2> blockSegments,
             Vector2 position, byte[,] blockMatrix, Vector2 dir)
 
@@ -64,9 +59,18 @@ namespace ConsoleTetris
             MapMang.Manager.BoardArray = (byte[,]) MapMang.Manager.LandedArray.Clone();
         }
 
-        private static bool BlockIsOccupied(int y, int x, byte[,] matrix)
+        public static bool BlockIsOccupied(int y, int x, byte[,] matrix)
         {
             return matrix[y, x] > 0;
+        }
+        public static bool BlockIsEmpty(int y, int x, byte[,] matrix)
+        {
+            return matrix[y, x] == 0;
+        }
+
+        private static bool IntersectWithSides(int posX)
+        {
+            return (posX > 12 || posX < 1);
         }
     }
 }
