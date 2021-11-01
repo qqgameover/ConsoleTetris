@@ -13,6 +13,7 @@ namespace ConsoleTetris
         public byte[,] LandedArray { get => MapMang.Manager.LandedArray; set => MapMang.Manager.LandedArray = value; }
         public int Points { get; private set; }
 
+        //added this to get more colors.
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool SetConsoleMode(IntPtr hConsoleHandle, int mode);
         [DllImport("kernel32.dll", SetLastError = true)]
