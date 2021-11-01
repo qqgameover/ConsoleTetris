@@ -44,11 +44,16 @@ namespace ConsoleTetris
                     Board.CheckForTetris();
                     Board.DrawBoard();
                     GetNewRandomPiece();
-                    if (MapMang.Manager.LandedArray[2, 5] > 0) break;
+                    if (GameOver()) break;
                 }
                 CurrentPiece.DrawBlock(Board.BoardArray, x);
                 Board.DrawBoard();
             }
+        }
+
+        private static bool GameOver()
+        {
+            return MapMang.Manager.LandedArray[2, 5] > 0;
         }
 
         private static void PlaySong()
