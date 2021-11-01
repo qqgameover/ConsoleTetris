@@ -63,12 +63,14 @@ namespace ConsoleTetris
                 {
                     if (BoardArray[i, j] == 0)
                     {
+                        //better gray and black
                         Console.Write( "\x1b[38;5;" + 241 + "m" );
                         Console.Write( "\x1b[48;5;" + 232 + "m+" );
                         Console.ResetColor();
                     }
                     if (BoardArray[i, j] == 1)
                     {
+                        //better gray
                         Console.Write("\x1b[38;5;" + 241 + "m");
                         Console.Write("█");
                         Console.ResetColor();
