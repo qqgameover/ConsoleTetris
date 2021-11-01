@@ -114,10 +114,10 @@ namespace ConsoleTetris
         public void RotateBlockMatrix()
         {
             byte[,] newMatrix = new byte[BlockMatrix.GetLength(1), BlockMatrix.GetLength(0)];
-            int newColumn, newRow = 0;
+            int newRow = 0;
             for (int oldColumn = BlockMatrix.GetLength(1) - 1; oldColumn >= 0; oldColumn--)
             {
-                newColumn = 0;
+                var newColumn = 0;
                 for (int oldRow = 0; oldRow < BlockMatrix.GetLength(0); oldRow++)
                 {
                     newMatrix[newRow, newColumn] = BlockMatrix[oldRow, oldColumn];

@@ -145,12 +145,12 @@ namespace ConsoleTetris
         {
             //turns a rect jagged array into a 2d array.
             //will throw error if source is not rectangular.
-            int FirstDim = source.Length;
-            int SecondDim = source.GroupBy(row => row.Length).Single().Key;
+            int firstDim = source.Length;
+            int secondDim = source.GroupBy(row => row.Length).Single().Key;
 
-            var result = new byte[FirstDim, SecondDim];
-            for (int i = 0; i < FirstDim; ++i)
-            for (int j = 0; j < SecondDim; ++j) result[i, j] = source[i][j];
+            var result = new byte[firstDim, secondDim];
+            for (int i = 0; i < firstDim; ++i)
+            for (int j = 0; j < secondDim; ++j) result[i, j] = source[i][j];
             return result;
         }
         private bool IsEmpty(int i, int j)
