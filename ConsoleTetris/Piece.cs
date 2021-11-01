@@ -54,11 +54,6 @@ namespace ConsoleTetris
             }
         }
 
-        private bool BlockIsFilled(int i, int j)
-        {
-            return BlockMatrix[i, j] > 0;
-        }
-
         public void CalculateNewPos(Vector2 direction, byte[,] board, bool isValid = true)
         {
             if (!isValid)
@@ -147,7 +142,7 @@ namespace ConsoleTetris
             {
                 int x = (int)blockSegment.X;
                 int y = (int)(blockSegment.Y);
-                if (MapMang.Manager.LandedArray[y, x] > 0)
+                if (ColDetection.BlockIsOccupied(y, x, MapMang.Manager.LandedArray))
                 {
                     return false;
                 }
