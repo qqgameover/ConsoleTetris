@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleTetris
 {
@@ -40,7 +38,7 @@ namespace ConsoleTetris
             {
                 for (int i = 0; i < width; i++)
                 {
-                    //wall or roof
+                    //floor or roof
                     board[0, i] = 1;
                     board[height - 1, i] = 1;
                     if (Board.IsAWall(i, width))
@@ -89,12 +87,9 @@ namespace ConsoleTetris
         private void WriteWithBetterColors(int color, string sym = "█")
         {
             Console.Write("\x1b[38;5;" + color + "m");
-            if (sym != "")
-            {
-                Console.Write(sym);
-                Console.ResetColor();
-            }
-            
+            if (sym == "") return;
+            Console.Write(sym);
+            Console.ResetColor();
         }
 
 
