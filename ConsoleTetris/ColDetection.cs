@@ -9,14 +9,14 @@ namespace ConsoleTetris
 {
     public static class ColDetection
     {
-        public static bool CheckSides(List<Vector2> segments, Vector2 dir)
+        public static bool CheckSides(List<Position> segments, Position dir)
         {
-            foreach (Vector2 blockSegment in segments)
+            foreach (var blockSegment in segments)
             {
-                int dirY = (int) dir.Y;
-                int dirX = (int)dir.X;
-                int x = (int)blockSegment.X;
-                int y = (int)blockSegment.Y;
+                int dirY = dir.Y;
+                int dirX = dir.X;
+                int x = blockSegment.X;
+                int y = blockSegment.Y;
                 if (IntersectWithSides(x))
                 {
                     return true;
@@ -28,15 +28,15 @@ namespace ConsoleTetris
             return false;
         }
 
-        public static bool CheckEachBlockForCol(List<Vector2> blockSegments,
-            Vector2 position, byte[,] blockMatrix, Vector2 dir)
+        public static bool CheckEachBlockForCol(List<Position> blockSegments,
+            Position position, byte[,] blockMatrix, Position dir)
 
         {
             bool hasCollision = false;
-            foreach (Vector2 blockSegment in blockSegments)
+            foreach (var blockSegment in blockSegments)
             {
-                int x = (int) blockSegment.X;
-                int y = (int) (blockSegment.Y + dir.Y);
+                int x = blockSegment.X;
+                int y = blockSegment.Y + dir.Y;
                 if (BlockIsOccupied(y, x, MapMang.Manager.LandedArray))
                 {
                     hasCollision = true;
@@ -46,14 +46,14 @@ namespace ConsoleTetris
             return hasCollision;
         }
 
-        private static void PutMatrixInLandedArray(Vector2 position, byte[,] blockMatrix)
+        private static void PutMatrixInLandedArray(Position position, byte[,] blockMatrix)
         {
             for (int k = 0; k < blockMatrix.GetLength(0); k++)
                 for (int l = 0; l < blockMatrix.GetLength(1); l++)
                 {
                     if (BlockIsOccupied(k, l, blockMatrix))
                     {
-                        MapMang.Manager.LandedArray[(int) position.Y + k, (int) position.X + l] = blockMatrix[k, l];
+                        MapMang.Manager.LandedArray[position.Y + k, position.X + l] = blockMatrix[k, l];
                     }
                 }
             MapMang.Manager.BoardArray = (byte[,]) MapMang.Manager.LandedArray.Clone();

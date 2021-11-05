@@ -11,8 +11,8 @@ namespace ConsoleTetris
     public abstract class Piece
     {
         internal byte[,] BlockMatrix { get; set; }
-        internal Vector2 Position { get; set; }
-        public void DrawBlock(byte[,] board, Vector2 dir)
+        internal Position Position { get; set; }
+        public void DrawBlock(byte[,] board, Position dir)
         {
             UndrawBlock(Position, board);
             var blockSegment = GetBlockSegments(Position, BlockMatrix);
@@ -25,8 +25,8 @@ namespace ConsoleTetris
             {
                 CalculateNewPos(dir, board);
             }
-            var y = (int)Position.Y;
-            var x = (int)Position.X;
+            var y = Position.Y;
+            var x = Position.X;
             //there must be a better way to do this...
             for (int k = 0; k < BlockMatrix.GetLength(0); k++)
                 for (int l = 0; l < BlockMatrix.GetLength(1); l++)
@@ -39,10 +39,10 @@ namespace ConsoleTetris
 
         }
 
-        public void UndrawBlock(Vector2 position, byte[,] board)
+        public void UndrawBlock(Position position, byte[,] board)
         {
-            var y = (int) position.Y;
-            var x = (int) position.X;
+            var y = position.Y;
+            var x = position.X;
             {
                 for (int k = 0; k < BlockMatrix.GetLength(0); k++)
                 for (int l = 0; l < BlockMatrix.GetLength(1); l++)
@@ -55,11 +55,11 @@ namespace ConsoleTetris
             }
         }
 
-        public void CalculateNewPos(Vector2 direction, byte[,] board, bool isValid = true)
+        public void CalculateNewPos(Position direction, byte[,] board, bool isValid = true)
         {
             if (!isValid)
             {
-                Position = new Vector2(Position.X, Position.Y + 1f);
+                Position = new Position(Position.Y + 1, Position.X);
                 return;
             }
 
@@ -69,7 +69,7 @@ namespace ConsoleTetris
             for (int l = 0; l < BlockMatrix.GetLength(1); l++)
             {
                 if (ColDetection.BlockIsEmpty(k, l, BlockMatrix)) continue;
-                if (board[(int)Position.Y + k, (int)Position.X + l + (int)direction.X] == 1)
+                if (board[Position.Y + k, Position.X + l + (int)direction.X] == 1)
                 {
                     hittingSides = true;
                 }
@@ -77,22 +77,22 @@ namespace ConsoleTetris
 
             if (hittingSides)
             {
-                Position = new Vector2(Position.X, Position.Y + 1f);
+                Position = new Position(Position.Y + 1, Position.X);
                 return;
             }
-            Position = new Vector2(Position.X + direction.X, Position.Y + direction.Y);
+            Position = Position + direction;
         }
 
 
-        public bool CheckForCol(Vector2 dir)
+        public bool CheckForCol(Position dir)
         {
             var blockSegments = GetBlockSegments(Position, BlockMatrix);
             return ColDetection.CheckEachBlockForCol(blockSegments, Position, BlockMatrix, dir);
         }
 
-        private List<Vector2> GetBlockSegments(Vector2 destination, byte[,]blockMatrix)
+        private List<Position> GetBlockSegments(Position destination, byte[,]blockMatrix)
         {
-            List<Vector2> blockSegments = new List<Vector2>();
+            List<Position> blockSegments = new List<Position>();
 
             var height = blockMatrix.GetLength(0);
             var width = blockMatrix.GetLength(1);
@@ -101,7 +101,7 @@ namespace ConsoleTetris
             for (int x = 0; x < width; x++)
             {
                 if (ColDetection.BlockIsEmpty(y, x, blockMatrix)) continue;
-                Vector2 segmentPosition = destination;
+                Position segmentPosition = destination;
                 segmentPosition.X += x;
                 segmentPosition.Y += y;
 
@@ -139,10 +139,10 @@ namespace ConsoleTetris
         private bool TestRotation(byte[,] newMatrix)
         {
             var blockSegments = GetBlockSegments(Position, newMatrix);
-            foreach (Vector2 blockSegment in blockSegments)
+            foreach (var blockSegment in blockSegments)
             {
-                int x = (int)blockSegment.X;
-                int y = (int)(blockSegment.Y);
+                int x = blockSegment.X;
+                int y = blockSegment.Y;
                 if (ColDetection.BlockIsOccupied(y, x, MapMang.Manager.LandedArray))
                 {
                     return false;
@@ -165,7 +165,7 @@ namespace ConsoleTetris
         }
 
         //Will kick the block out of the wall if its rotation results in it being in the wall. 
-        private void WallKick(List<Vector2> blockSegments)
+        private void WallKick(List<Position> blockSegments)
         {
             foreach (var segment in blockSegments)
             {
@@ -173,11 +173,11 @@ namespace ConsoleTetris
                 var x = (int) segment.X;
                 if (NextToLeftWall(x))
                 {
-                    Position = new Vector2(Position.X + 1f, Position.Y);
+                    Position = new Position(Position.Y, Position.X + 1);
                 }
                 if (NextToRightWall(x))
                 {
-                    Position = new Vector2(Position.X - 1f, Position.Y);
+                    Position = new Position(Position.Y, Position.X - 1);
                 }
             }
         }
