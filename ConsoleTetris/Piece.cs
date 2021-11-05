@@ -69,7 +69,7 @@ namespace ConsoleTetris
             for (int l = 0; l < BlockMatrix.GetLength(1); l++)
             {
                 if (ColDetection.BlockIsEmpty(k, l, BlockMatrix)) continue;
-                if (board[Position.Y + k, Position.X + l + (int)direction.X] == 1)
+                if (board[Position.Y + k, Position.X + l + direction.X] == 1)
                 {
                     hittingSides = true;
                 }
@@ -80,7 +80,7 @@ namespace ConsoleTetris
                 Position = new Position(Position.Y + 1, Position.X);
                 return;
             }
-            Position = Position + direction;
+            Position += direction;
         }
 
 
@@ -169,8 +169,8 @@ namespace ConsoleTetris
         {
             foreach (var segment in blockSegments)
             {
-                var y = (int) segment.Y;
-                var x = (int) segment.X;
+                var y = segment.Y;
+                var x = segment.X;
                 if (NextToLeftWall(x))
                 {
                     Position = new Position(Position.Y, Position.X + 1);
