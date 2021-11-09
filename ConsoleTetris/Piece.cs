@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using static ConsoleTetris.ColDetection;
 
 namespace ConsoleTetris
 {
@@ -16,7 +11,7 @@ namespace ConsoleTetris
         {
             UndrawBlock(Position, board);
             var blockSegment = GetBlockSegments(Position, BlockMatrix);
-            var checkSidesForCol = ColDetection.CheckSides(blockSegment, dir);
+            var checkSidesForCol = CheckSides(blockSegment, dir);
             if (checkSidesForCol)
             {
                 CalculateNewPos(dir, board, false);
@@ -31,7 +26,7 @@ namespace ConsoleTetris
             for (int k = 0; k < BlockMatrix.GetLength(0); k++)
                 for (int l = 0; l < BlockMatrix.GetLength(1); l++)
                 {
-                    if (ColDetection.BlockIsOccupied(k, l, BlockMatrix))
+                    if (BlockIsOccupied(k, l, BlockMatrix))
                     {
                         board[y + k, x + l] = BlockMatrix[k, l];
                     }
@@ -47,7 +42,7 @@ namespace ConsoleTetris
                 for (int k = 0; k < BlockMatrix.GetLength(0); k++)
                 for (int l = 0; l < BlockMatrix.GetLength(1); l++)
                 {
-                    if (ColDetection.BlockIsOccupied(k, l, BlockMatrix))
+                    if (BlockIsOccupied(k, l, BlockMatrix))
                     {
                         board[y + k, x + l] = 0;
                     }
@@ -68,7 +63,7 @@ namespace ConsoleTetris
             for (int k = 0; k < BlockMatrix.GetLength(0); k++)
             for (int l = 0; l < BlockMatrix.GetLength(1); l++)
             {
-                if (ColDetection.BlockIsEmpty(k, l, BlockMatrix)) continue;
+                if (BlockIsEmpty(k, l, BlockMatrix)) continue;
                 if (board[Position.Y + k, Position.X + l + direction.X] == 1)
                 {
                     hittingSides = true;
@@ -87,7 +82,7 @@ namespace ConsoleTetris
         public bool CheckForCol(Position dir)
         {
             var blockSegments = GetBlockSegments(Position, BlockMatrix);
-            return ColDetection.CheckEachBlockForCol(blockSegments, Position, BlockMatrix, dir);
+            return CheckEachBlockForCol(blockSegments, Position, BlockMatrix, dir);
         }
 
         private List<Position> GetBlockSegments(Position destination, byte[,]blockMatrix)
@@ -100,7 +95,7 @@ namespace ConsoleTetris
             for (int y = 0; y < height; y++)
             for (int x = 0; x < width; x++)
             {
-                if (ColDetection.BlockIsEmpty(y, x, blockMatrix)) continue;
+                if (BlockIsEmpty(y, x, blockMatrix)) continue;
                 Position segmentPosition = destination;
                 segmentPosition.X += x;
                 segmentPosition.Y += y;
@@ -143,7 +138,7 @@ namespace ConsoleTetris
             {
                 int x = blockSegment.X;
                 int y = blockSegment.Y;
-                if (ColDetection.BlockIsOccupied(y, x, MapMang.Manager.LandedArray))
+                if (BlockIsOccupied(y, x, MapMang.Manager.LandedArray))
                 {
                     return false;
                 }
