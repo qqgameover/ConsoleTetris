@@ -155,7 +155,6 @@ namespace ConsoleTetris
                 bool testPosition = TestRotation(newMatrix);
                 if (testPosition) return true;
             }
-
             return false;
         }
 

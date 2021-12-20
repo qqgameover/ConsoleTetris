@@ -61,7 +61,6 @@ namespace ConsoleTetris
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return;
             SoundPlayer player = new SoundPlayer("Tetris.wav");
             player.PlayLooping();
-
         }
 
         private static void ConsoleStuff()

@@ -17,7 +17,6 @@ namespace ConsoleTetris
         private static extern bool SetConsoleMode(IntPtr hConsoleHandle, int mode);
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool GetConsoleMode(IntPtr handle, out int mode);
-
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GetStdHandle(int handle);
 
@@ -140,7 +139,6 @@ namespace ConsoleTetris
             //will throw error if source is not rectangular.
             int firstDim = source.Length;
             int secondDim = source.GroupBy(row => row.Length).Single().Key;
-
             var result = new byte[firstDim, secondDim];
             for (int i = 0; i < firstDim; ++i)
             for (int j = 0; j < secondDim; ++j) result[i, j] = source[i][j];
